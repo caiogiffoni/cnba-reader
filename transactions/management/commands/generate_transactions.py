@@ -1,7 +1,7 @@
 # create_multiple_users.py
 
 from django.core.management.base import BaseCommand
-from transactions.models import Transation
+from transactions.models import Transaction
 
 table = [
     {
@@ -65,6 +65,6 @@ class Command(BaseCommand):
     help = "Create transactions table"
 
     def handle(self, *args, **kwargs):
-        Transation.objects.bulk_create(
-            [Transation(**el) for el in table]
+        Transaction.objects.bulk_create(
+            [Transaction(**el) for el in table]
         )  ## BULK CREATTE FOR PERFOMANCE

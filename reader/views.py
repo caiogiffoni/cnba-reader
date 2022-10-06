@@ -2,6 +2,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from rest_framework.views import APIView, Request, Response, status
 
+from reader.serializers import ReaderSerializer
+
 from .forms import CNBAForm, UploadFileForm
 
 
@@ -13,6 +15,8 @@ class HomeView(APIView):
         # import ipdb
 
         # ipdb.set_trace()
+
+        serializer.save()
         form = UploadFileForm(request.POST, request.FILES)
         # form = CNBAForm(request.POST, request.FILES)
         # check whether it's valid:
@@ -29,6 +33,11 @@ class HomeView(APIView):
                     .encode("latin1")
                     .decode("utf8")
                 )
+                tipo = text[0:1]
+                Transaction
+                serializer = ReaderSerializer(data=request.data)
+                serializer.is_valid(raise_exception=True)
+
                 print(text)
 
             # ...

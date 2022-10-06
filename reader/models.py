@@ -1,7 +1,7 @@
 from uuid import uuid4
 
 from django.db import models
-from transactions.models import Transation
+from transactions.models import Transaction
 
 # Create your models here.
 
@@ -9,7 +9,7 @@ from transactions.models import Transation
 class Reader(models.Model):
     id = models.UUIDField(default=uuid4, primary_key=True, editable=False)
     tipo = models.ForeignKey(
-        Transation,
+        Transaction,
         on_delete=models.CASCADE,
         related_name="transactions",
     )
