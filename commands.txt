@@ -228,3 +228,11 @@ add Procfile
 #Procfile
 release: python manage.py migrate
 web: gunicorn kenzie_pet.wsgi
+
+commands
+    dir
+    management>commands> NAME.py
+    class Commands(BaseCommand)
+    call : python manage.py nameOfFile
+
+    
