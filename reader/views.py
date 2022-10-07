@@ -2,41 +2,28 @@ from functools import total_ordering
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from rest_framework import generics
 from rest_framework.views import APIView, Request, Response, status
 from transactions.models import Transaction
 
 from reader.models import Reader
 from reader.serializers import ReaderSerializer
 
-from .forms import CNBAForm, UploadFileForm
+from .forms import UploadFileForm
 
 
 class HomeView(APIView):
+    # if this is a POST request we need to process the form data
     def post(self, request: Request) -> Response:
-        # if this is a POST request we need to process the form data
-        # create a form instance and populate it with data from the request:
-        # form = CNBAForm(request.POST, request.FILES)
-        # import ipdb
-
-        # ipdb.set_trace()
-
         form = UploadFileForm(request.POST, request.FILES)
-        # form = CNBAForm(request.POST, request.FILES)
-        # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # with open(request.FILES["file"], "r") as file:
-            # for line in request.FILES["file"]:
-            for line in request.FILES["file"]:
+            for line in request.FILES["file"]:  # ADJUST STRING FOR ACCENTS
                 text = (
                     line.decode("unicode_escape")
                     .encode("latin1")
                     .decode("utf8")
                 )
                 tipo = Transaction.objects.get(tipo=text[0:1])
-
-                print(tipo)
+                # PASRING INFO TO DATA
                 data = {
                     "data": f"{text[1:5]}-{text[5:7]}-{text[7:9]}",
                     "valor": float(text[9:19]) / 100,
@@ -47,23 +34,15 @@ class HomeView(APIView):
                     "nome_da_loja": text[62:81].strip(),
                     "tipo": tipo.id,
                 }
-                # import ipdb
-
-                # ipdb.set_trace()
                 serializer = ReaderSerializer(data=data)
                 serializer.is_valid(raise_exception=True),
                 serializer.save()
-
-            # ...
-            # redirect to a new URL:
             return HttpResponseRedirect("/thanks/")
         return render(request, "home.html", {"form": form})
 
     # if a GET (or any other method) we'll create a blank form
     def get(self, request: Request) -> Response:
-        # form = CNBAForm()
         form = UploadFileForm()
-
         return render(request, "home.html", {"form": form})
 
 
@@ -72,7 +51,7 @@ class TableView(APIView):
         serializer = ReaderSerializer(Reader.objects.all(), many=True)
         stores = {x["nome_da_loja"] for x in serializer.data}
         total_transaction = {}
-        for store in stores:
+        for store in stores:  # TRANSACTION TOTAL FOR EACH STORE
             total_transaction[store] = sum(
                 [
                     float(transaction["valor"])
@@ -80,7 +59,6 @@ class TableView(APIView):
                     if transaction["nome_da_loja"] == store
                 ]
             )
-        print(total_transaction)
         return render(
             request,
             "table.html",
