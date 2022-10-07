@@ -65,6 +65,8 @@ class HomeView(APIView):
         return render(request, "home.html", {"form": form})
 
 
-class TableView(generics.ListAPIView):
-    queryset = Reader.objects.all()
-    serializer_class = ReaderSerializer
+class TableView(APIView):
+    def get(self, request: Request) -> Response:
+        serializer = ReaderSerializer(Reader.objects.all(), many=True)
+        # return Response(serializer.data)
+        return render(request, "table.html", {"response": serializer.data})

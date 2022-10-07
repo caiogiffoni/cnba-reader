@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabela</title>
+  </head>
+  <body>
+    <h1>Tabela</h1>
+    <table border="1" cellpadding="5" cellspacing="5">
+      <td>Tipo</td>
+      <td>Data</td>
+      <td>Valor</td>
+      <td>CPF</td>
+      <td>Cartão</td>
+      <td>Hora</td>
+      <td>Dono da Loja</td>
+      <td>Nome da Loja</td>
+
+      {% for i in response%}
+
+      <tr>
+        <td>{{i.tipo.descrição}}</td>
+        <td>{{i.data}}</td>
+        <td>{{i.valor}}</td>
+        <td>{{i.cpf}}</td>
+        <td>{{i.cartão}}</td>
+        <td>{{i.hora}}</td>
+        <td>{{i.dono_da_loja}}</td>
+        <td>{{i.nome_da_loja}}</td>
+      </tr>
+
+      {% endfor %}
+    </table>
+  </body>
+</html>
