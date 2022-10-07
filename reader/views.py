@@ -1,8 +1,10 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from rest_framework import generics
 from rest_framework.views import APIView, Request, Response, status
 from transactions.models import Transaction
 
+from reader.models import Reader
 from reader.serializers import ReaderSerializer
 
 from .forms import CNBAForm, UploadFileForm
@@ -61,3 +63,8 @@ class HomeView(APIView):
         form = UploadFileForm()
 
         return render(request, "home.html", {"form": form})
+
+
+class TableView(generics.ListAPIView):
+    queryset = Reader.objects.all()
+    serializer_class = ReaderSerializer
