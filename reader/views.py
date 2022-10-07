@@ -1,3 +1,5 @@
+from functools import total_ordering
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from rest_framework import generics
@@ -68,5 +70,22 @@ class HomeView(APIView):
 class TableView(APIView):
     def get(self, request: Request) -> Response:
         serializer = ReaderSerializer(Reader.objects.all(), many=True)
-        # return Response(serializer.data)
-        return render(request, "table.html", {"response": serializer.data})
+        stores = {x["nome_da_loja"] for x in serializer.data}
+        total_transaction = {}
+        for store in stores:
+            total_transaction[store] = sum(
+                [
+                    float(transaction["valor"])
+                    for transaction in serializer.data
+                    if transaction["nome_da_loja"] == store
+                ]
+            )
+        print(total_transaction)
+        return render(
+            request,
+            "table.html",
+            {
+                "response": serializer.data,
+                "stores": total_transaction,
+            },
+        )

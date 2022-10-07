@@ -8,6 +8,10 @@
   </head>
   <body>
     <h1>Tabela</h1>
+    {% for store, value in stores.items%}
+
+    <h3>{{store}}</h3>
+
     <table border="1" cellpadding="5" cellspacing="5">
       <td>Tipo</td>
       <td>Data</td>
@@ -18,8 +22,7 @@
       <td>Dono da Loja</td>
       <td>Nome da Loja</td>
 
-      {% for i in response%}
-
+      {% for i in response %} {% if i.nome_da_loja == store %}
       <tr>
         <td>{{i.tipo.descrição}}</td>
         <td>{{i.data}}</td>
@@ -30,8 +33,12 @@
         <td>{{i.dono_da_loja}}</td>
         <td>{{i.nome_da_loja}}</td>
       </tr>
-
-      {% endfor %}
+      {% endif %} {% endfor %}
+      <tr>
+        <td style="font-weight: bold" colspan="2">Saldo</td>
+        <td>{{value}}</td>
+      </tr>
     </table>
+    {% endfor %}
   </body>
 </html>
