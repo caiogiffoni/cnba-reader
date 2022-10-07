@@ -52,12 +52,16 @@ class TableView(APIView):
         stores = {x["nome_da_loja"] for x in serializer.data}
         total_transaction = {}
         for store in stores:  # TRANSACTION TOTAL FOR EACH STORE
-            total_transaction[store] = sum(
-                [
-                    float(transaction["valor"])
-                    for transaction in serializer.data
-                    if transaction["nome_da_loja"] == store
-                ]
+            total_transaction[store] = round(
+                sum(
+                    [
+                        float(transaction["valor"])
+                        * transaction["tipo"]["sinal"]
+                        for transaction in serializer.data
+                        if transaction["nome_da_loja"] == store
+                    ]
+                ),
+                2,
             )
         return render(
             request,
