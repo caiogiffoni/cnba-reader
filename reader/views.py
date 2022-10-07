@@ -37,7 +37,7 @@ class HomeView(APIView):
                 serializer = ReaderSerializer(data=data)
                 serializer.is_valid(raise_exception=True),
                 serializer.save()
-            return HttpResponseRedirect("/thanks/")
+            return HttpResponseRedirect("/tables/")
         return render(request, "home.html", {"form": form})
 
     # if a GET (or any other method) we'll create a blank form
