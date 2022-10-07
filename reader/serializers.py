@@ -6,6 +6,11 @@ from reader.models import Reader
 
 
 class ReaderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reader
+        fields = "__all__"
+
+class ReaderSerializerView(serializers.ModelSerializer):
     tipo = TransactionSerializer()
 
     class Meta:

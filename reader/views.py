@@ -6,7 +6,7 @@ from rest_framework.views import APIView, Request, Response, status
 from transactions.models import Transaction
 
 from reader.models import Reader
-from reader.serializers import ReaderSerializer
+from reader.serializers import ReaderSerializer, ReaderSerializerView
 
 from .forms import UploadFileForm
 
@@ -23,7 +23,7 @@ class HomeView(APIView):
                     .decode("utf8")
                 )
                 tipo = Transaction.objects.get(tipo=text[0:1])
-                # PASRING INFO TO DATA
+                # PARSING INFO TO DATA
                 data = {
                     "data": f"{text[1:5]}-{text[5:7]}-{text[7:9]}",
                     "valor": float(text[9:19]) / 100,
@@ -37,7 +37,7 @@ class HomeView(APIView):
                 serializer = ReaderSerializer(data=data)
                 serializer.is_valid(raise_exception=True),
                 serializer.save()
-            return HttpResponseRedirect("/tables/")
+            return HttpResponseRedirect("/table/")
         return render(request, "home.html", {"form": form})
 
     # if a GET (or any other method) we'll create a blank form
@@ -48,7 +48,7 @@ class HomeView(APIView):
 
 class TableView(APIView):
     def get(self, request: Request) -> Response:
-        serializer = ReaderSerializer(Reader.objects.all(), many=True)
+        serializer = ReaderSerializerView(Reader.objects.all(), many=True)
         stores = {x["nome_da_loja"] for x in serializer.data}
         total_transaction = {}
         for store in stores:  # TRANSACTION TOTAL FOR EACH STORE
