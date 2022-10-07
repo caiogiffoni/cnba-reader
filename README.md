@@ -2,32 +2,29 @@
   CNBA - Reader - Django
 </h1>
 
-
-
 ## 💻 Projeto
+
 API para upload de arquivos no formato CNBA e visualização das tabelas por estabelecimentos
 
 ## 🔨 Implementações
 
-- [X] Upload de arquivo e persistência no banco de dados
-- [X] Páginas templates no Django
-- [X] Testes
-- [X] Docker
+- [x] Upload de arquivo e persistência no banco de dados
+- [x] Páginas templates no Django
+- [x] Testes
+- [x] Docker
 - [ ] Heroku
-
 
 ## ✨ Tecnologias
 
-- [X] Django
-- [X] Django Rest Framework
-- [X] Docker / Docker compose
-
+- [x] Django
+- [x] Django Rest Framework
+- [x] Docker / Docker compose
 
 ## 🌐 Deploy
+
 #### Sem deploy por enquanto
+
 [Link do deploy]()
-
-
 
 ## Quick Start - BackEnd
 
@@ -42,9 +39,29 @@ Configure conforme credenciais do Postgres.
 
 ### 1.3. Vá a pasta e rode o Docker
 
-````
 rode:
 
-````
+```
+
 docker compose up
-````
+
+```
+
+### 1.4. Vá ao terminal
+
+
+rode:
+
+```
+docker exec -it cnba-reader-web-1 bash
+```
+
+e dentro do terminal bash do docker, rode:
+
+```
+python manage.py generate_transactions
+```
+
+### 1.5. Use a aplicação em:
+
+http://localhost:8000/home/
