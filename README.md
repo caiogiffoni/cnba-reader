@@ -13,7 +13,7 @@ API para upload de arquivos no formato CNBA e visualização das tabelas por est
 - [X] Páginas templates no Django
 - [X] Testes
 - [X] Docker
-- [X] Heroku
+- [ ] Heroku
 
 
 ## ✨ Tecnologias
