@@ -21,7 +21,7 @@ class TransactionModelTest(TestCase):
             sinal=cls.sinal,
         )
 
-    def test_name_max_length(self):
+    def test_transaction_max_length(self):
         max_length_desc = self.transaction._meta.get_field(
             "descrição"
         ).max_length
