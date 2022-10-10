@@ -38,6 +38,7 @@ Crie um arquivo **.env**, copiando o exemplo **.env.example**.
 Configure conforme credenciais do Postgres.
 
 ### 1.3. Vá a pasta e rode o Docker
+*Necessário ter docker instalado
 
 rode:
 
@@ -65,3 +66,5 @@ python manage.py generate_transactions
 ### 1.5. Use a aplicação em:
 
 http://localhost:8000/home/
+
+e faça upload do seu arquivo CNBA
